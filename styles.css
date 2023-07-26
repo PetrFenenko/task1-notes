@@ -20,7 +20,7 @@ section {
 
 table {
   width: 100%;
-
+  min-height: 30rem;
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
@@ -34,6 +34,18 @@ tr {
   align-content: center;
   justify-content: space-between;
   padding: 0 2rem 0 5rem;
+}
+
+.notes tr {
+  display: grid;
+  gap: 2%;
+  grid-template-columns: 20% 15% 10% 20% 15% 5%;
+}
+
+.summary tr {
+  display: grid;
+  gap: 2%;
+  grid-template-columns: 40% 20% 40%;
 }
 
 th {

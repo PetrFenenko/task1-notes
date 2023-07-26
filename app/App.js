@@ -1,22 +1,28 @@
 import NotesTable from "./components/NotesTable.js";
+import SummaryTable from "./components/SummaryTable.js";
 import notesArray from "./data/notesArray.js";
 
 const App = function _App() {
   return `
-  <section class="notes">
-  <table id="notesTable">
+  <section>
   
-  
-  </table>
-        <div class="button-container">
-            <button id="addNoteButton">ADD A NOTE</button>
-        </div>
-  </section>
-  `;
+    <table id="notesTable" class="notes">
+    </table>
+
+    <div class="button-container">
+      <button id="addNoteButton">ADD A NOTE</button>
+     </div>
+
+    <table id="summaryTable" class="summary">
+    </table>
+
+  </section>`
 };
 
-App.state = {
+const renderNotesTable = () => NotesTable(App.state);
+const renderSummaryTable = () => SummaryTable(App.state);
 
+App.state = {
   displayArchived: false,
 
   notesArray: notesArray,
@@ -32,22 +38,19 @@ App.state = {
         .slice(0, noteIndex)
         .concat(App.state.notesArray.slice(noteIndex + 1)),
     }),
-      renderNotesTable();
+      updateTree();
   },
 
-  toggleArchivedStatus: (noteIndex)=>{
-    App.state.notesArray[noteIndex].archived = !App.state.notesArray[noteIndex].archived
-    renderNotesTable()
-  }
-  ,
-  
-}
-
-
-const renderNotesTable = () => NotesTable(App.state);
+  toggleArchivedStatus: (noteIndex) => {
+    App.state.notesArray[noteIndex].archived =
+      !App.state.notesArray[noteIndex].archived;
+    updateTree();
+  },
+};
 
 const updateTree = () => {
   document.getElementById("App").innerHTML = App();
+  renderSummaryTable();
   renderNotesTable();
 };
 
