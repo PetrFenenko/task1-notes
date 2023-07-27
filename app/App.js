@@ -18,7 +18,6 @@ const App = function _App() {
   </section>`;
 };
 
-
 // Declaring render functions
 
 export const renderNotesTable = () => NotesTable(App.state);
@@ -26,9 +25,9 @@ export const renderNotesTable = () => NotesTable(App.state);
 const renderSummaryTable = () => SummaryTable(App.state);
 
 const renderNoteForm = () => {
-  if (document.getElementById("addItemForm")) return
-  renderNotesTable(); 
-  const formItem = Form(App.state.addNote)
+  if (document.getElementById("addItemForm")) return;
+  renderNotesTable();
+  const formItem = Form(App.state.addNote);
   formItem.id = "addItemForm";
   document.getElementById("notesTable").appendChild(formItem);
 };
@@ -37,8 +36,7 @@ const renderAddNoteButton = () => {
   const addNoteButton = document.createElement("button");
   addNoteButton.id = "addNoteButton";
   addNoteButton.textContent = "ADD A NOTE";
-  addNoteButton.addEventListener("click", renderNoteForm)
-  
+  addNoteButton.addEventListener("click", renderNoteForm);
 
   const buttonContainer = document.getElementById("buttonContainer");
   buttonContainer.appendChild(addNoteButton);
@@ -50,7 +48,6 @@ const updateTree = () => {
   renderNotesTable();
   renderAddNoteButton();
 };
-
 
 // Implementing state
 
@@ -75,40 +72,48 @@ App.state = {
   },
 
   toggleArchivedStatus: (noteIndex) => {
-    App.state.notesArray[noteIndex].archived =
-      !App.state.notesArray[noteIndex].archived;
-    updateTree();
+    try {
+      App.state.notesArray[noteIndex].archived =
+        !App.state.notesArray[noteIndex].archived;
+      updateTree();
+    } catch (error) {
+      console.log(error);
+      updateTree();
+    }
   },
 
   addNote: (event) => {
-   
     event.preventDefault();
     App.state.notesArray[App.state.notesArray.length] = {
-    name: event.target.name.value,
-    created: new Date(),
-    category: event.target.category.value,
-    content: event.target.content.value,
-    dates: extractDates(event.target.content.value),
-    archived: false,
-  }
+      name: event.target.name.value,
+      created: new Date(),
+      category: event.target.category.value,
+      content: event.target.content.value,
+      dates: extractDates(event.target.content.value),
+      archived: false,
+    };
     updateTree();
   },
 
   updateNote: (event) => {
-    
     event.preventDefault();
-    App.state.notesArray[event.target.id] = {
-    ...App.state.notesArray[event.target.id],
-    name: event.target.name.value,
-    category: event.target.category.value,
-    content: event.target.content.value,
-    dates: extractDates(event.target.content.value),
-  }
-    updateTree();
+    try {
+      App.state.notesArray[event.target.id] = {
+        ...App.state.notesArray[event.target.id],
+        name: event.target.name.value,
+        category: event.target.category.value,
+        content: event.target.content.value,
+        dates: extractDates(event.target.content.value),
+      };
+      renderNotesTable();
+    } catch (error) {
+      console.log(error);
+      renderNotesTable();
+    }
   },
-
 };
 
+// Extracting dates from the content field
 
 const extractDates = (inputString) => {
   const datePattern = /\b(\d{1,2})\/(\d{1,2})\/(\d{4})\b/g;
@@ -124,8 +129,7 @@ const extractDates = (inputString) => {
   }
 
   return datesArray;
-
-}
+};
 
 // Launching the app
 

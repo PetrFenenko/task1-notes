@@ -6,10 +6,10 @@ import { renderNotesTable } from "../App.js";
 
 export default function Form(handleSubmit, noteData, noteIndex) {
   // Creating the form element and populating it with initial data
-  
+
   const form = document.createElement("form");
-  form.onsubmit =  handleSubmit
-  noteIndex && (form.id = noteIndex)
+  form.onsubmit = handleSubmit;
+  noteIndex && (form.id = noteIndex);
 
   // Creating and appending the input elements
   const nameInput = document.createElement("input");
@@ -17,7 +17,7 @@ export default function Form(handleSubmit, noteData, noteIndex) {
   nameInput.type = "text";
   nameInput.name = "name";
   nameInput.id = "name";
-  noteData?.name && (nameInput.value= noteData.name)
+  noteData?.name && (nameInput.value = noteData.name);
   nameInput.placeholder = "Name";
   nameInput.required = true;
   form.appendChild(nameInput);
@@ -25,23 +25,23 @@ export default function Form(handleSubmit, noteData, noteIndex) {
   const categorySelect = document.createElement("select");
   categorySelect.name = "category";
   categorySelect.id = "category";
-  
+
   const taskOption = document.createElement("option");
   taskOption.value = "Task";
   taskOption.textContent = "Task";
   categorySelect.appendChild(taskOption);
-  
+
   const randomThoughtOption = document.createElement("option");
   randomThoughtOption.value = "Random Thought";
   randomThoughtOption.textContent = "Random Thought";
   categorySelect.appendChild(randomThoughtOption);
-  
+
   const ideaOption = document.createElement("option");
   ideaOption.value = "Idea";
   ideaOption.textContent = "Idea";
   categorySelect.appendChild(ideaOption);
-  noteData?.category && (categorySelect.value=noteData.category)
-  
+  noteData?.category && (categorySelect.value = noteData.category);
+
   form.appendChild(categorySelect);
 
   const contentInput = document.createElement("input");
@@ -50,9 +50,9 @@ export default function Form(handleSubmit, noteData, noteIndex) {
   contentInput.id = "content";
   contentInput.placeholder = "Content";
   contentInput.required = true;
-  
-  noteData?.content && (contentInput.value= noteData.content)
-  
+
+  noteData?.content && (contentInput.value = noteData.content);
+
   form.appendChild(contentInput);
 
   // Creating the buttons
@@ -66,11 +66,11 @@ export default function Form(handleSubmit, noteData, noteIndex) {
   buttons.appendChild(submitButton);
 
   const cancelButton = document.createElement("button");
-  
-  cancelButton.id = "cancel"
+
+  cancelButton.id = "cancel";
   cancelButton.innerHTML = cancelSVG;
 
-  cancelButton.addEventListener("click", () => renderNotesTable())
+  cancelButton.addEventListener("click", () => renderNotesTable());
   buttons.appendChild(cancelButton);
 
   form.appendChild(buttons);

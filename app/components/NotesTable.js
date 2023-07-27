@@ -3,10 +3,7 @@ import Note from "./Note.js";
 const NotesTable = function _NotesTable(state) {
   const { notesArray, displayArchived, toggleArchivedDisplay } = state;
 
-
-
   const TableElement = document.getElementById("notesTable");
-  
 
   TableElement.classList.add("table");
   TableElement.innerHTML = "";
@@ -22,7 +19,6 @@ const NotesTable = function _NotesTable(state) {
   
   
 `;
-
 
   const headerButtons = document.createElement("div");
   headerButtons.classList.add("header-item");
@@ -56,8 +52,5 @@ const NotesTable = function _NotesTable(state) {
       TableElement.appendChild(Note(noteData, noteIndex, state));
   });
 };
-
-
-
 
 export default NotesTable;

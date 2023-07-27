@@ -20,7 +20,7 @@ const editItemSVG = `<svg  xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 96
 export default function Note(
   noteData,
   noteIndex,
-  { removeNote, updateNote, toggleArchivedStatus},
+  { removeNote, updateNote, toggleArchivedStatus },
 ) {
   const noteElement = document.createElement("div");
 
@@ -58,9 +58,11 @@ export default function Note(
   const editItemButton = document.createElement("button");
   editItemButton.innerHTML = editItemSVG;
   editItemButton.addEventListener("click", () => {
-    renderNotesTable()
-    document.getElementById(noteIndex).replaceWith(Form(updateNote, noteData, noteIndex))
-  } )
+    renderNotesTable();
+    document
+      .getElementById(noteIndex)
+      .replaceWith(Form(updateNote, noteData, noteIndex));
+  });
   buttons.appendChild(editItemButton);
 
   const toggleArchivedStatusButton = document.createElement("button");
