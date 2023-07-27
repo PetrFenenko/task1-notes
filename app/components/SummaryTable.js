@@ -1,13 +1,15 @@
 export default function SummaryTable({ notesArray }) {
-
   const TableElement = document.getElementById("summaryTable");
+  TableElement.classList.add("table");
   TableElement.innerHTML = "";
-  const tableHeader = document.createElement("tr");
+  const tableHeader = document.createElement("div");
   tableHeader.classList.add("table-header");
   tableHeader.innerHTML = `
-  <th>Note Category</th>
-  <th>Active</th>
-  <th>Archived</th>
+
+  <div class="header-item">Note Category</div>
+  <div class="header-item">Active</div>
+  <div class="header-item">Archived</div>
+  
   `;
   TableElement.appendChild(tableHeader);
 
@@ -29,34 +31,38 @@ export default function SummaryTable({ notesArray }) {
     },
   ];
 
-  const summaryData = notesArray.reduce(
-    (accumulator, currentItem) => {
-      const index = accumulator.findIndex(
-        (element) => element.category === currentItem.category,
-      );
-      currentItem.archived
-        ? accumulator[index].archived++
-        : accumulator[index].active++;
-      return accumulator;
-    }, summaryTemplate)
+  const summaryData = notesArray.reduce((accumulator, currentItem) => {
+    const index = accumulator.findIndex(
+      (element) => element.category === currentItem.category,
+    );
+
+    currentItem.archived
+      ? accumulator[index].archived++
+      : accumulator[index].active++;
+
+    return accumulator;
+  }, summaryTemplate);
 
   const renderCategorySummary = (categorySummaryData) => {
-    const summaryElement = document.createElement("tr");
+    const summaryElement = document.createElement("div");
 
     summaryElement.classList.add("entry");
-    const category = document.createElement("td");
+    const category = document.createElement("div");
     category.textContent = categorySummaryData.category;
     summaryElement.appendChild(category);
 
-    const active = document.createElement("td");
+    const active = document.createElement("div");
     active.textContent = categorySummaryData.active;
     summaryElement.appendChild(active);
 
-    const archived = document.createElement("td");
+    const archived = document.createElement("div");
     archived.textContent = categorySummaryData.archived;
     summaryElement.appendChild(archived);
 
     TableElement.appendChild(summaryElement);
   };
-  summaryData.map((categorySummaryData) => renderCategorySummary(categorySummaryData));
+
+  summaryData.map((categorySummaryData) =>
+    renderCategorySummary(categorySummaryData),
+  );
 }

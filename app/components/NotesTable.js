@@ -2,21 +2,30 @@ import Note from "./Note.js";
 
 const NotesTable = function _NotesTable(state) {
   const { notesArray, displayArchived, toggleArchivedDisplay } = state;
+
+
+
   const TableElement = document.getElementById("notesTable");
+  
+
+  TableElement.classList.add("table");
   TableElement.innerHTML = "";
-  const tableHeader = document.createElement("tr");
+  const tableHeader = document.createElement("div");
   tableHeader.classList.add("table-header");
   tableHeader.innerHTML = `
-  <th>Name</th>
-  <th>Created on</th>
-  <th>Category</th>
-  <th>Content</th>
-  <th>Dates</th>
+  <div class="header-item">Name</div>
+  <div class="header-item">Created on</div>
+  <div class="header-item">Category</div>
+  <div class="header-item">Content</div>
+  <div class="header-item">Dates</div>
+  
   
   
 `;
 
+
   const headerButtons = document.createElement("div");
+  headerButtons.classList.add("header-item");
   headerButtons.classList.add("header__buttons");
   const toggleArchivedDisplayButton = document.createElement("button");
   toggleArchivedDisplayButton.id = "toggleArchivedDisplay";
@@ -38,9 +47,8 @@ const NotesTable = function _NotesTable(state) {
 
   headerButtons.appendChild(toggleArchivedDisplayButton);
   toggleArchivedDisplayButton.addEventListener("click", toggleArchivedDisplay);
-  tableHeader.appendChild(
-    document.createElement("th").appendChild(headerButtons),
-  );
+
+  tableHeader.appendChild(headerButtons);
   TableElement.appendChild(tableHeader);
 
   notesArray.map((noteData, noteIndex) => {
@@ -48,5 +56,8 @@ const NotesTable = function _NotesTable(state) {
       TableElement.appendChild(Note(noteData, noteIndex, state));
   });
 };
+
+
+
 
 export default NotesTable;
